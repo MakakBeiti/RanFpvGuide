@@ -1,0 +1,178 @@
+﻿@page "/build-calculator"
+
+<div class="container mt-4" style="max-width: 900px; margin: 0 auto; padding: 0 15px;" dir="rtl">
+
+    <div class="text-center mb-5">
+        <h1 style="color: var(--fpv-orange); font-size: 2.5rem; font-weight: 700; margin-bottom: 10px;">🛠️ מדריך הבנייה והתאימות הרשמי</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">בחרו את תצורת הרחפן שתרצו לבנות, וצפו ברכיבים המומלצים והתואמים ביותר עבורה כדי להימנע מטעויות ברכישה.</p>
+    </div>
+
+    @* ================= STEP 1: CHOOSE THE BUILD ARCHITECTURE ================= *@
+    <div class="fpv-card mb-4" style="border: 2px solid var(--fpv-orange); background: rgba(255, 102, 0, 0.02); padding: 24px;">
+        <h3 style="color: var(--fpv-orange); font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <span>🚀</span> שלב א': בחירת סוג הרחפן ומערכת המתח
+        </h3>
+        <p style="font-size: 0.95rem; margin-bottom: 20px;">הבחירה שלך תטען אוטומטית את קטלוג הרכיבים המומלצים והמותאמים ב-100% לאותה תצורה.</p>
+
+        <div style="max-width: 400px;">
+            <label style="font-weight: 700; display: block; margin-bottom: 8px;">תצורת בנייה מבוקשת:</label>
+            <select class="form-select" style="width: 100%; padding: 10px; border-radius: 6px;" @onchange="OnBuildTypeChanged">
+                <option value="">-- בחר תצורת רחפן --</option>
+                <option value="3inch_4s">"3 אינץ' במתח 4S (רחפן קל, שקט וזריז)</option>
+                <option value="3.5inch_4s">"3.5 אינץ' במתח 4S (האיזון המושלם לפארקים)</option>
+                <option value="5inch_6s">"5 אינץ' במתח 6S (הסטנדרט המקצועי לפריסטייל ומירוצים)</option>
+            </select>
+        </div>
+    </div>
+
+    @if (string.IsNullOrEmpty(selectedBuildType))
+    {
+        <div class="text-center p-5" style="border: 2px dashed var(--border-light); border-radius: 8px; background: rgba(0,0,0,0.01);">
+            <h4 style="color: var(--text-muted);">אנא בחר תצורת בנייה בשלב א' כדי להציג את החלקים המומלצים.</h4>
+        </div>
+    }
+    else
+    {
+        var currentSetup = GetCurrentSetup();
+
+        @* ================= STEP 2: DISPLAY RECOMMENDED PARTS MATRIX ================= *@
+        <div class="alert mb-4 text-center" style="background-color: rgba(0, 136, 255, 0.05); border: 1px solid var(--fpv-blue); color: var(--text-primary);">
+            💡 <strong>מציג המלצות עבור:</strong> רחפן <strong>@currentSetup.Title</strong>. כל הרכיבים הבאים תואמים לחלוטין זה לזה!
+        </div>
+
+        @* --- CATEGORY: FRAMES --- *@
+        <div style="margin-bottom: 35px;">
+            <h3 style="color: var(--fpv-blue); font-weight: 700; margin-bottom: 15px; border-bottom: 2px solid var(--border-light); padding-bottom: 5px;">📐 שלדות מומלצות (Frames)</h3>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                @foreach (var frame in currentSetup.Frames)
+                {
+                    <div class="fpv-card" style="padding: 20px; border-right: 4px solid var(--fpv-blue);">
+                        <h4 style="margin: 0 0 5px 0; font-weight: 700;">@frame.Name</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">גודל: @frame.SizeSpec | תאימות מובנית: @currentSetup.StackType ומנועים מתאימים.</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @* --- CATEGORY: STACKS --- *@
+        <div style="margin-bottom: 35px;">
+            <h3 style="color: var(--fpv-blue); font-weight: 700; margin-bottom: 15px; border-bottom: 2px solid var(--border-light); padding-bottom: 5px;">🧠 בקרי טיסה ומהירות (Stacks & AIO)</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">לתצורה זו מומלץ להשתמש ברכיבים מסוג: <strong>@currentSetup.StackType</strong></p>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                @foreach (var stack in currentSetup.Stacks)
+                {
+                    <div class="fpv-card" style="padding: 20px; border-right: 4px solid #26b050;">
+                        <h4 style="margin: 0 0 5px 0; font-weight: 700;">@stack.Name</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">סוג/גודל: @stack.TypeSpec | זרם מובנה: @stack.Amps | מתאים למתח המערכת שנבחרה.</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @* --- CATEGORY: MOTORS --- *@
+        <div style="margin-bottom: 35px;">
+            <h3 style="color: var(--fpv-blue); font-weight: 700; margin-bottom: 15px; border-bottom: 2px solid var(--border-light); padding-bottom: 5px;">🛸 מנועים וערכי KV אופטימליים</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">טקסט מנחה לתצורה: @currentSetup.MotorGuide</p>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                @foreach (var motor in currentSetup.Motors)
+                {
+                    <div class="fpv-card" style="padding: 20px; border-right: 4px solid var(--fpv-orange);">
+                        <h4 style="margin: 0 0 5px 0; font-weight: 700;">@motor.Name</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">מידות סטטור: @motor.SizeSpec | טווח מהירות: @motor.KvRating</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @* --- COMPATIBILITY VERIFICATION FOOTER --- *@
+        <div class="fpv-card" style="border: 2px solid #26b050; background-color: rgba(38, 176, 80, 0.02); padding: 24px;">
+            <h4 style="color: #26b050; font-weight: 700; margin-bottom: 10px;">🟢 מטריצת תאימות מאושרת</h4>
+            <p style="margin: 0; font-size: 0.95rem;">כל שילוב בין השלדות, הבקרים והמנועים המוצגים בקטגוריה זו יעבוד בצורה מושלמת. הבקרים יתאימו פיזית למרווחי הברגים בשלדה, והמנועים יספקו את כוח הדחף הנכון מבלי להעמיס או לשרוף את מערכת החשמל.</p>
+        </div>
+    }
+
+</div>
+
+@code {
+    private string selectedBuildType = "";
+
+    private void OnBuildTypeChanged(ChangeEventArgs e)
+    {
+        selectedBuildType = e.Value?.ToString() ?? "";
+    }
+
+    // --- DATA STRUCTURES FOR RECOMMENDATIONS ---
+    public record FrameRec(string Name, string SizeSpec);
+    public record StackRec(string Name, string TypeSpec, string Amps);
+    public record MotorRec(string Name, string SizeSpec, string KvRating);
+
+    public class BuildSetup
+    {
+        public string Title { get; set; } = "";
+        public string StackType { get; set; } = "";
+        public string MotorGuide { get; set; } = "";
+        public List<FrameRec> Frames { get; set; } = new();
+        public List<StackRec> Stacks { get; set; } = new();
+        public List<MotorRec> Motors { get; set; } = new();
+    }
+
+    // --- APP RENDERING ENGINE LOGIC ---
+    private BuildSetup GetCurrentSetup()
+    {
+        var setup = new BuildSetup();
+
+        if (selectedBuildType == "3inch_4s")
+        {
+            setup.Title = "3 אינץ' במתח 4S";
+            setup.StackType = "Mini Stacks (20x20mm) או לוחות AIO משולבים";
+            setup.MotorGuide = "מנועים קלים ומהירים במידות קטנות עם ערכי KV גבוהים כדי לייצר עילוי חד על פרופלור קטן.";
+
+            setup.Frames.Add(new("Volador VX3", "3 אינץ'"));
+            setup.Frames.Add(new("DeepSpace Seeker 3", "3 אינץ'"));
+
+            setup.Stacks.Add(new("SpeedyBee F405 Mini Stack", "Mini Stack 20x20mm", "35A"));
+            setup.Stacks.Add(new("DarwinFPV F411 30A AIO", "AIO Board (All-In-One)", "30A"));
+            setup.Stacks.Add(new("Goku Versatile F405 AIO", "AIO Board (All-In-One)", "40A"));
+
+            setup.Motors.Add(new("Emax ECO II 1404", "1404 Stator", "3800KV - 4500KV"));
+            setup.Motors.Add(new("T-Motor F1507", "1507 Stator", "3800KV - 4100KV"));
+        }
+        else if (selectedBuildType == "3.5inch_4s")
+        {
+            setup.Title = "3.5 אינץ' במתח 4S";
+            setup.StackType = "Mini Stacks (20x20mm) או לוחות AIO חזקים";
+            setup.MotorGuide = "מידה ורסאטילית במיוחד. מנועי 1404 עד 1804 מעניקים יותר מומנט (Torque) שמתאים ללהבים ארוכים יותר.";
+
+            setup.Frames.Add(new("Volador VX3.5", "3.5 אינץ'"));
+            setup.Frames.Add(new("DeepSpace Seeker 35", "3.5 אינץ'"));
+
+            setup.Stacks.Add(new("SpeedyBee F405 Mini Stack", "Mini Stack 20x20mm", "35A"));
+            setup.Stacks.Add(new("Mamba MK4 F745 Mini", "Mini Stack 20x20mm", "40A"));
+            setup.Stacks.Add(new("iFlight Blitz Mini F7", "Mini Stack 20x20mm", "55A"));
+
+            setup.Motors.Add(new("BrotherHobby VY 1504.5", "1504.5 Stator", "3950KV"));
+            setup.Motors.Add(new("XING2 1404 Black", "1404 Stator", "3800KV"));
+            setup.Motors.Add(new("T-Motor F1804 High-Torque", "1804 Stator", "3500KV - 4100KV"));
+        }
+        else if (selectedBuildType == "5inch_6s")
+        {
+            setup.Title = "5 אינץ' במתח 6S";
+            setup.StackType = "Full Size Stacks (30.5x30.5mm) חסונים ומקוררים";
+            setup.MotorGuide = "המידה המקצועית והנפוצה ביותר. ערכי KV נמוכים משולבים במתח 6S גבוה לביצועים חסרי פשרות ללא דעיכת סוללה.";
+
+            setup.Frames.Add(new("Apex 5 HD / EVO", "5 אינץ'"));
+            setup.Frames.Add(new("Its FPV ERA 5", "5 אינץ'"));
+            setup.Frames.Add(new("Speedybee Mario 5", "5 אינץ'"));
+            setup.Frames.Add(new("Volador VX5", "5 אינץ'"));
+
+            setup.Stacks.Add(new("SpeedyBee F405 V4 Stack", "Full Stack 30.5x30.5mm", "50A"));
+            setup.Stacks.Add(new("SpeedyBee F405 V5 Stack", "Full Stack 30.5x30.5mm", "55A"));
+            setup.Stacks.Add(new("Hobbywing XRotor F7 Stack", "Full Stack 30.5x30.5mm", "60A"));
+
+            setup.Motors.Add(new("XING2 2207 (6S Edition)", "2207 Stator", "1750KV - 1950KV"));
+            setup.Motors.Add(new("T-Motor Velox V3 2306", "2306 Stator", "1750KV - 1950KV"));
+        }
+
+        return setup;
+    }
+}

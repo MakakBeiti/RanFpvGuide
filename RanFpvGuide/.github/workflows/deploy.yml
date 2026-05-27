@@ -1,0 +1,33 @@
+﻿name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ] # Change this to 'master' if your default branch is master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x' # Change to '9.0.x' if you are using .NET 9
+
+    - name: Publish Project
+      run: dotnet publish -c Release -o release
+
+    # This step automatically fixes the .nojekyll issue for you
+    - name: Add .nojekyll
+      run: touch release/wwwroot/.nojekyll
+
+    # This step duplicates index.html to 404.html for routing fixes
+    - name: Add 404 page
+      run: cp release/wwwroot/index.html release/wwwroot/404.html
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: release/wwwroot
+        branch: gh-pages # This will automatically create a separate branch just for your live site files

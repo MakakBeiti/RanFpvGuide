@@ -62,7 +62,6 @@
                             var currentCh = chIndex + 1;
                             var freq = band.Value[chIndex];
 
-                            // מניעת שגיאה במקרה שלערוץ מסוים אין 8 תדרים (כמו ב-DJI 50mbps)
                             if (freq == 0)
                             {
                                 <td style="padding: 12px; background-color: #f8f9fa; color: #ccc; cursor: not-allowed;">❌</td>
@@ -112,67 +111,66 @@
         </ul>
     </div>
 
-</div>
+    <div class="fpv-card" style="border-right: 4px solid #ff9800; background-color: #fffaf2; margin-top: 20px;">
+        <h3 style="color: #ef6c00; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <span>📶</span> FCC Mode ב-DJI Goggles
+        </h3>
 
-<div class="fpv-card" style="border-right: 4px solid #ff9800; background-color: #fffaf2; margin-top: 20px;">
-    <h3 style="color: #ef6c00; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-        <span>📶</span> FCC Mode ב-DJI Goggles
-    </h3>
+        <p style="line-height: 1.6; margin-bottom: 15px;">
+            בעולם ה-FPV נהוג מאוד להפעיל <strong>FCC Mode</strong> במשקפי DJI (כגון Goggles V2, Goggles 2 ו-Integra).
+            למרות שהקהילה קוראת לזה לפעמים "<strong>FCC Hack</strong>", בפועל לא מדובר בפריצה או שינוי קושחה.
+            הפעולה רק גורמת למשקפיים לעבוד במצב FCC במקום מצב CE, וכך נפתחים ערוצים נוספים ונמנעות חלק ממגבלות האזור.
+        </p>
 
-    <p style="line-height: 1.6; margin-bottom: 15px;">
-        בעולם ה-FPV נהוג מאוד להפעיל <strong>FCC Mode</strong> במשקפי DJI (כגון Goggles V2, Goggles 2 ו-Integra).
-        למרות שהקהילה קוראת לזה לפעמים "<strong>FCC Hack</strong>", בפועל לא מדובר בפריצה או שינוי קושחה.
-        הפעולה רק גורמת למשקפיים לעבוד במצב FCC במקום מצב CE, וכך נפתחים ערוצים נוספים ונמנעות חלק ממגבלות האזור.
-    </p>
+        <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px;">
+            ✅ למה מטיסים משתמשים בזה?
+        </h4>
 
-    <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px;">
-        ✅ למה מטיסים משתמשים בזה?
-    </h4>
+        <ul style="padding-right: 20px; line-height: 1.7;">
+            <li>גישה לכל 8 ערוצי DJI.</li>
+            <li>תאימות טובה יותר לטבלאות התדרים המקובלות בעולם ה-FPV.</li>
+            <li>קל יותר להפריד בין מטיסים בשטח עמוס.</li>
+            <li>זמינות של ערוצי התדר הגבוהים (למשל CH7 ו-CH8).</li>
+        </ul>
 
-    <ul style="padding-right: 20px; line-height: 1.7;">
-        <li>גישה לכל 8 ערוצי DJI.</li>
-        <li>תאימות טובה יותר לטבלאות התדרים המקובלות בעולם ה-FPV.</li>
-        <li>קל יותר להפריד בין מטיסים בשטח עמוס.</li>
-        <li>זמינות של ערוצי התדר הגבוהים (למשל CH7 ו-CH8).</li>
-    </ul>
+        <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px;">
+            🛠️ איך מפעילים?
+        </h4>
 
-    <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px;">
-        🛠️ איך מפעילים?
-    </h4>
+        <ol style="padding-right: 20px; line-height: 1.7; margin-bottom: 15px;">
+            <li>הורידו את קובץ ה-FCC מהקישור למטה.</li>
+            <li>חלצו את הקבצים במידת הצורך.</li>
+            <li>חברו את המשקפיים למחשב באמצעות USB.</li>
+            <li>העתיקו את הקובץ לכרטיס הזיכרון או לזיכרון הפנימי של המשקפיים (בהתאם להוראות המצורפות בקובץ).</li>
+            <li>הפעילו מחדש את המשקפיים.</li>
+            <li>לאחר האתחול יופיעו ערוצי ה-FCC המלאים בתפריט בחירת הערוצים.</li>
+        </ol>
 
-    <ol style="padding-right: 20px; line-height: 1.7; margin-bottom: 15px;">
-        <li>הורידו את קובץ ה-FCC מהקישור למטה.</li>
-        <li>חלצו את הקבצים במידת הצורך.</li>
-        <li>חברו את המשקפיים למחשב באמצעות USB.</li>
-        <li>העתיקו את הקובץ לכרטיס הזיכרון או לזיכרון הפנימי של המשקפיים (בהתאם להוראות המצורפות בקובץ).</li>
-        <li>הפעילו מחדש את המשקפיים.</li>
-        <li>לאחר האתחול יופיעו ערוצי ה-FCC המלאים בתפריט בחירת הערוצים.</li>
-    </ol>
+        <div style="background: rgba(255,152,0,0.08); padding: 12px; border-radius: 8px;">
+            <strong>קובץ FCC:</strong>
+            <br />
+            <a href="https://drive.google.com/file/d/1Jydo8lYJ3ZLZbvrIJoIxYWRBcI_gjgWl/view"
+               target="_blank"
+               rel="noopener noreferrer"
+               style="color: #ef6c00; font-weight: 600;">
+                הורדה והוראות התקנה
+            </a>
+        </div>
 
-    <div style="background: rgba(255,152,0,0.08); padding: 12px; border-radius: 8px;">
-        <strong>קובץ FCC:</strong>
-        <br />
-        <a href="https://drive.google.com/file/d/1Jydo8lYJ3ZLZbvrIJoIxYWRBcI_gjgWl/view"
-           target="_blank"
-           rel="noopener noreferrer"
-           style="color: #ef6c00; font-weight: 600;">
-            הורדה והוראות התקנה
-        </a>
+        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
+            שימו לב: יש לבדוק את חוקי השידור והתדרים הרלוונטיים במדינה שבה אתם מטיסים.
+        </p>
     </div>
 
-    <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
-        שימו לב: יש לבדוק את חוקי השידור והתדרים הרלוונטיים במדינה שבה אתם מטיסים.
-    </p>
 </div>
 
 @code {
-    // נתוני טבלת התדרים הרשמית של עולם ה-FPV כולל ערוצי DJI
     private Dictionary<string, int[]> VtxTable = new()
     {
         { "Raceband (R)",    new int[] { 5658, 5695, 5732, 5769, 5806, 5843, 5880, 5917 } },
         { "Fatshark (F)",    new int[] { 5740, 5760, 5780, 5800, 5820, 5840, 5860, 5880 } },
         { "DJI (25Mbps Mode)", new int[] { 5660, 5695, 5735, 5770, 5805, 5840, 5880, 5914 } },
-        { "DJI (50Mbps Mode)", new int[] { 5660, 5735, 5805, 5880, 0,    0,    0,    0    } } // במצב 50M יש רק 4 ערוצים רחבים
+        { "DJI (50Mbps Mode)", new int[] { 5660, 5735, 5805, 5880, 0,    0,    0,    0    } }
     };
 
     private string selectedBand = "";
