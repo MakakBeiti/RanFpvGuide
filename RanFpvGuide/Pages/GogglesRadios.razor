@@ -1,0 +1,182 @@
+﻿@page "/goggles-radios"
+
+<div class="container mt-4" style="max-width: 900px; margin: 0 auto; padding: 0 15px;" dir="rtl">
+
+    <div class="text-center mb-5">
+        <h1 style="color: var(--fpv-orange); font-size: 2.5rem; font-weight: 700; margin-bottom: 10px;">משקפי FPV ומערכות תאימות (Goggles)</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">המשקפיים הם חלון הראווה שלכם אל תא הטייס של הרחפן. בחירת המשקפיים קובעת את איכות הוידאו, חדות התמונה והתאימות למערכות השידור השונות בשטח.</p>
+    </div>
+
+    @* --- DJI Goggles 3 --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImg3)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת Goggles 3</div>
+                }
+                else
+                {
+                    <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTi1AUAMpB_UVMeoui7EXXRVybP02STuLgRfzlAbwSAJ05LrfUmbGwtfkt3qKZxeBRpt7ff5o2wnWBk4BOw3SQwcstQzaQnnqk3L5jRBIy-MsbcWxNmJR1vzMrX-EOviCKP-G1yzg&usqp=CAc"
+                         alt="DJI Goggles 3"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImg3 = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <span class="component-tag" style="font-size: 0.85rem; color: var(--fpv-orange); font-weight: bold; text-transform: uppercase;">DJI / משקפי דגל O4</span>
+                <h3 style="color: var(--fpv-blue); margin-top: 5px; margin-bottom: 15px; font-weight: 700;">DJI Goggles 3</h3>
+                <p>משקפי הפרימיום המתקדמים ביותר של חברת DJI. הם כוללים מסכי Micro-OLED באיכות מדהימה, תמיכה בטכנולוגיית Real View (מצלמות קדמיות המאפשרות לראות את הסביבה מבלי להוריד את המשקפיים) ומערכת שידור O4 יציבה עם השהיה אפסית.</p>
+
+                <div class="specs-section" style="margin-top: 15px; background: rgba(0,0,0,0.02); padding: 12px; border-radius: 6px;">
+                    <ul class="specs-list" style="margin: 0; padding-right: 20px;">
+                        <li class="mb-1"><strong>מערכות אוויר נתמכות:</strong> DJI O4 Air Unit, DJI O3 Air Unit (בעדכון גרסה).</li>
+                        <li><strong>שלטי DJI נתמכות:</strong> DJI FPV Remote Controller 3.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* --- DJI Goggles Integra --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgIntegra)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת Goggles Integra</div>
+                }
+                else
+                {
+                    <img src="https://cdn.bug.co.il/images/site/products/ppf_03ac6ce8-2e21-404a-938a-ee60446ba7eb_prvdsk.webp"
+                         alt="DJI Goggles Integra"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgIntegra = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <span class="component-tag" style="font-size: 0.85rem; color: var(--fpv-orange); font-weight: bold; text-transform: uppercase;">DJI / משקפי קומפקט אולטימטיביים</span>
+                <h3 style="color: var(--fpv-blue); margin-top: 5px; margin-bottom: 15px; font-weight: 700;">DJI Goggles Integra</h3>
+                <p>גרסה משופרת ונוחה במיוחד המשלבת את הסוללה ישירות בתוך רצועת הראש האחורית, מה שמבטל לחלוטין את הצורך בכבלים משתרכים. הם כוללים מסכי Micro-OLED מעולים ומציעים תמורה פנומנלית למחיר עבור מי שמחפש נוחות וקלילות בשטח.</p>
+
+                <div class="specs-section" style="margin-top: 15px; background: rgba(0,0,0,0.02); padding: 12px; border-radius: 6px;">
+                    <ul class="specs-list" style="margin: 0; padding-right: 20px;">
+                        <li class="mb-1"><strong>מערכות אוויר נתמכות:</strong> DJI O3 Air Unit, DJI Avata/O2 Digital System, וגם תמיכה ב-O4 (בעדכוני גרסה אחרונים).</li>
+                        <li><strong>שלטי DJI נתמכות:</strong> DJI FPV Remote Controller 2, DJI FPV Remote Controller 3.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* --- DJI Goggles N3 --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgN3)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת Goggles N3</div>
+                }
+                else
+                {
+                    <img src="https://www.djistore.benda.co.il/wp-content/uploads/2025/01/6df9e2a9a558e8d2031213fc4716d9f7@origin-scaled.b197b0.webp"
+                         alt="DJI Goggles N3"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgN3 = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <span class="component-tag" style="font-size: 0.85rem; color: var(--fpv-orange); font-weight: bold; text-transform: uppercase;">DJI / גרסת התקציב הדיגיטלית</span>
+                <h3 style="color: var(--fpv-blue); margin-top: 5px; margin-bottom: 15px; font-weight: 700;">DJI Goggles N3</h3>
+                <p>משקפי כניסה מודרניים המעוצבים במבנה רחב ונוח המאפשר למרכיבי משקפי ראייה להשתמש בהם בקלות ללא צורך בעדשות מיוחדות. הם מציעים מסך LCD יחיד וגדול, חווית הטסה היקפית מצוינת במחיר משתלם במיוחד, ומבוססים על מערכת השידור העדכנית.</p>
+
+                <div class="specs-section" style="margin-top: 15px; background: rgba(0,0,0,0.02); padding: 12px; border-radius: 6px;">
+                    <ul class="specs-list" style="margin: 0; padding-right: 20px;">
+                        <li class="mb-1"><strong>מערכות אוויר נתמכות:</strong> DJI O4 Air Unit, DJI O3 Air Unit.</li>
+                        <li><strong>שלטי DJI נתמכות:</strong> DJI FPV Remote Controller 3.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* --- DJI FPV Goggles V2 --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgV2)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת Goggles V2</div>
+                }
+                else
+                {
+                    <img src="https://m.media-amazon.com/images/I/51klD6IYnJL._AC_SY300_SX300_QL70_FMwebp_.jpg"
+                         alt="DJI FPV Goggles V2"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgV2 = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <span class="component-tag" style="font-size: 0.85rem; color: var(--fpv-orange); font-weight: bold; text-transform: uppercase;">DJI / מלך הפריסטייל והורסטיליות</span>
+                <h3 style="color: var(--fpv-blue); margin-top: 5px; margin-bottom: 15px; font-weight: 700;">DJI FPV Goggles V2</h3>
+                <p>אחד הדגמים המצליחים ביותר בהיסטוריה של ה-FPV. למרות שהם נחשבים לדור קודם, הם מבוקשים מאוד בשל היכולת הייחודית שלהם לעבוד גם במצב דיגיטלי וגם לקבל מודול אנלוגי חיצוני (באמצעות מתאם). מציעים קצב רענון מסך גבוה מאוד של 144Hz.</p>
+
+                <div class="specs-section" style="margin-top: 15px; background: rgba(0,0,0,0.02); padding: 12px; border-radius: 6px;">
+                    <ul class="specs-list" style="margin: 0; padding-right: 20px;">
+                        <li class="mb-1"><strong>מערכות אוויר נתמכות:</strong> DJI O3 Air Unit, Caddx Vista / RunCam Link, DJI FPV Air Unit (הדור הישן). <span style="color:#dc3545; font-weight:bold;">*אינם תומכים ב-O4</span>.</li>
+                        <li><strong>שלטי DJI נתמכות:</strong> DJI FPV Remote Controller 2, DJI FPV Remote Controller 1 (השחור הגדול).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* --- DJI Digital FPV Goggles V1 --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgV1)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת Goggles V1</div>
+                }
+                else
+                {
+                    <img src="https://cdn.myshoptet.com/usr/www.6sfull.cz/user/shop/big/876_876-dji-fpv-bryle-v1.jpg?696ab8d2"
+                         alt="DJI Digital FPV Goggles V1"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgV1 = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <span class="component-tag" style="font-size: 0.85rem; color: var(--fpv-orange); font-weight: bold; text-transform: uppercase;">DJI / הדור הדיגיטלי הראשון</span>
+                <h3 style="color: var(--fpv-blue); margin-top: 5px; margin-bottom: 15px; font-weight: 700;">DJI Digital FPV Goggles V1</h3>
+                <p>המשקפיים המקוריים שפתחו את המהפכה הדיגיטלית של DJI. הם נראים כמעט זהה לחלוטין ל-V2 אך פועלים בתדר 5.8GHz בלבד (ללא תדר 2.4GHz). כיום ניתן למצוא אותם בעיקר בשוק יד שנייה, והם מהווים פתרון חסכוני למערכות דיגיטליות ישנות.</p>
+
+                <div class="specs-section" style="margin-top: 15px; background: rgba(0,0,0,0.02); padding: 12px; border-radius: 6px;">
+                    <ul class="specs-list" style="margin: 0; padding-right: 20px;">
+                        <li class="mb-1"><strong>מערכות אוויר נתמכות:</strong> Caddx Vista / RunCam Link, DJI FPV Air Unit מקורי. <span style="color:#dc3545; font-weight:bold;">*אינם תומכים ב-O3 וב-O4</span>.</li>
+                        <li><strong>שלטי DJI נתמכות:</strong> DJI FPV Remote Controller 1 (השחור הגדול).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* --- Safety/Tip Box --- *@
+    <div class="fpv-card" style="border: 2px solid #dc3545; background-color: rgba(220, 53, 69, 0.02); padding: 24px;">
+        <h3 style="color: #dc3545; display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-weight: 700;">
+            <span>💡</span> טיפ חשוב לפני רכישה (אל תדלגו!)
+        </h3>
+        <p style="margin: 0;">שימו לב שחברת DJI נוטה לפצל את התאימות בין הדורות. אם אתם בונים רחפן מודרני עם מערכת <strong>DJI O4</strong>, עליכם לבחור ב-<strong>Goggles 3</strong> או ב-<strong>N3</strong>. אם אתם רוכשים רחפנים משומשים או מעדיפים מערכות <strong>Caddx Vista</strong> זולות יותר, משקפי ה-<strong>Goggles V2</strong> יהיו הבחירה הגמישה ביותר עבורכם.</p>
+    </div>
+
+</div>
+
+@code {
+    // Independent image tracking variables for clean error fallback rendering
+    private bool hideImg3 = false;
+    private bool hideImgIntegra = false;
+    private bool hideImgN3 = false;
+    private bool hideImgV2 = false;
+    private bool hideImgV1 = false;
+}

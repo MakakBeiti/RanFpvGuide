@@ -1,0 +1,173 @@
+﻿@page "/glossary"
+
+<div class="container mt-4" style="max-width: 900px; margin: 0 auto; padding: 0 15px;">
+
+    <div class="text-center mb-4">
+        <h1 style="color: var(--fpv-orange); font-size: 2.5rem; font-weight: 700; margin-bottom: 10px;">מילון מונחי FPV הגדול</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">עולם הרחפנים מלא בראשי תיבות ומושגים באנגלית שנשמעים כמו סינית. הנה הסדר המלא בגובה העיניים:</p>
+    </div>
+
+    <div class="mb-5" style="position: relative;">
+        <input type="text" @bind-value="searchQuery" @bind-value:event="oninput"
+               placeholder="🔍 חפשו מושג או קיצור (למשל: VTX, PID, 2.4, Cinewhoop)..."
+               class="form-control"
+               style="width: 100%; padding: 15px 20px; font-size: 1.1rem; border-radius: 30px; border: 2px solid var(--fpv-blue); box-shadow: 0 4px 6px rgba(0,0,0,0.05); outline: none;" />
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+        @if (FilteredTerms.Any())
+        {
+            @foreach (var item in FilteredTerms)
+            {
+                <div class="fpv-card" style="margin-bottom: 0; transition: transform 0.2s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px; gap: 10px;">
+                        <h3 style="color: var(--fpv-blue); margin: 0; font-size: 1.4rem; font-weight: 700;">
+                            @item.Term <span style="font-size: 1.1rem; color: var(--text-muted); font-weight: 400;">(@item.EnglishName)</span>
+                        </h3>
+                        <span style="font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; font-weight: 600; background-color: @GetCategoryColor(item.Category); color: #fff;">
+                            @item.Category
+                        </span>
+                    </div>
+                    <p style="margin: 0; color: var(--text-primary); line-height: 1.6;">@item.Definition</p>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="text-center p-5" style="background-color: #f8f9fa; border-radius: 8px; border: 1px dashed var(--border-light);">
+                <span style="font-size: 2.5rem;">😕</span>
+                <h4 style="margin-top: 10px; color: var(--text-muted);">לא מצאנו מושג שמתאים ל-"@searchQuery"</h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">נסו לבדוק שייתכן והקלדתם נכון באנגלית או בעברית.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private string searchQuery = "";
+
+    // מחלקת נתונים פנימית למושג במילון
+    public class GlossaryItem
+    {
+        public string Term { get; set; } = "";
+        public string EnglishName { get; set; } = "";
+        public string Definition { get; set; } = "";
+        public string Category { get; set; } = "";
+    }
+
+    // רשימת המושגים המלאה
+    private List<GlossaryItem> GlossaryTerms = new()
+    {
+        new GlossaryItem {
+            Term = "FC", EnglishName = "Flight Controller",
+            Definition = "בקר הטיסה. ה'מוח' של הרחפן. לוח אלקטרוני שמכיל חיישנים (כמו ג'יירו) ומחשב את תנועת הרחפן מאות ואלפי פעמים בשנייה כדי לשמור עליו יציב ולתרגם את פקודות השלט לתנועה.",
+            Category = "אלקטרוניקה"
+        },
+        new GlossaryItem {
+            Term = "ESC", EnglishName = "Electronic Speed Controller",
+            Definition = "בקר מהירות המנועים. הרכיב שמקבל פקודות מבקר הטיסה (FC) ומזרים זרם חשמלי מדויק מהסוללה לכל מנוע בנפרד כדי קבוע את מהירות הסיבוב שלו.",
+            Category = "אלקטרוניקה"
+        },
+        new GlossaryItem {
+            Term = "VTX", EnglishName = "Video Transmitter",
+            Definition = "משדר הוידאו של הרחפן. רכיב שמחובר למצלמה, לוקח את אות הוידאו ומשדר אותו באוויר ישירות למשקפיים של המטיס בזמן אמת.",
+            Category = "מערכת וידאו"
+        },
+        new GlossaryItem {
+            Term = "RX / Receiver", EnglishName = "Radio Receiver",
+            Definition = "המקלט שנמצא על הרחפן. הוא קולט את האות האלחוטי שנשלח מהשלט שבידיים שלכם ומעביר את הפקודות (סטיקים וכפתורים) ישירות לבקר הטיסה.",
+            Category = "רדיו ושלט"
+        },
+        new GlossaryItem {
+            Term = "ELRS", EnglishName = "ExpressLRS",
+            Definition = "פרוטוקול שידור רדיו מודרני בקוד פתוח. נחשב כיום לסטנדרט המוביל ב-FPV בגלל שהוא מציע טווח טיסה עצום, השהיית אות (Latency) אפסית ומחיר זול במיוחד.",
+            Category = "רדיו ושלט"
+        },
+        new GlossaryItem {
+            Term = "2.4 GHz", EnglishName = "2.4 Gigahertz Band",
+            Definition = "תדר הרדיו הסטנדרטי והנפוץ ביותר לפקודות השלט (כמו מערכות ELRS 2.4GHz או שלטי צילום). מספק איזון מעולה בין קצב העברת נתונים מהיר במיוחד לבין טווח קליטה מצוין וחדירת מכשולים טובה.",
+            Category = "תדרי שידור"
+        },
+        new GlossaryItem {
+            Term = "5.8 GHz", EnglishName = "5.8 Gigahertz Band",
+            Definition = "תדר השידור המיועד כמעט תמיד למערכות הוידאו (VTX) האנלוגיות והדיגיטליות ב-FPV. יתרונו הגדול הוא רוחב פס רחב המאפשר העברת וידאו חלקה, אך החיסרון שלו הוא רגישות גבוהה למכשולים (קירות ועצים חוסמים אותו בקלות).",
+            Category = "תדרי שידור"
+        },
+        new GlossaryItem {
+            Term = "915 MHz / 868 MHz", EnglishName = "Sub-GHz Long Range Bands",
+            Definition = "תדרי שידור נמוכים המשמשים בעיקר לטיסות ארוכות טווח (Long Range) בשלטים. 915MHz משמש בעיקר באמריקה ו-868MHz באירופה וישראל. בזכות הגל הארוך, תדרים אלו מסוגלים לחדור קירות, הרים ומבנים בצורה יוצאת דופן.",
+            Category = "תדרי שידור"
+        },
+        new GlossaryItem {
+            Term = "LiPo", EnglishName = "Lithium Polymer",
+            Definition = "סוג הסוללות הנפוץ ביותר ברחפני FPV. סוללות אלו מסוגלות לפרוק כמות עצומה של זרם חשמלי בבת אחת, מה שמעניק לרחפן את הכוח המתפרץ שלו, אך הן דורשות זהירות ובטיחות גבוהה בטעינה.",
+            Category = "סוללות"
+        },
+        new GlossaryItem {
+            Term = "Battery Sag", EnglishName = "מתח צנוח",
+            Definition = "תופעה שבה מתח הסוללה צונח זמנית בצורה חדה בזמן שנותנים 'פול גז'. הצניחה קורית בגלל מאמץ מטורף של המנועים, והמתח חוזר לעצמו מעט ברגע שעוזבים את הסטיק.",
+            Category = "סוללות"
+        },
+        new GlossaryItem {
+            Term = "OSD", EnglishName = "On-Screen Display",
+            Definition = "נתוני הטיסה שמוקרנים על גבי מסך הוידאו במשקפיים (כמו מתח סוללה, זמן טיסה, אות רדיו ושם המטיס). מיוצר על ידי בקר הטיסה ומקל מאוד על מעקב בזמן אמת.",
+            Category = "מערכת וידאו"
+        },
+        new GlossaryItem {
+            Term = "PID", EnglishName = "Proportional Integral Derivative",
+            Definition = "אלגוריתם מתמטי בתוך בקר הטיסה שאחראי על התיקון והייצוב של הרחפן. שינוי ערכי ה-PID (מה שנקרא Tuning) משנה את הדרך שבה הרחפן מגיב ומפצה על רוחות או תנועות חדות.",
+            Category = "תוכנה והטסה"
+        },
+        new GlossaryItem {
+            Term = "Rates", EnglishName = "קצבי תנועה",
+            Definition = "הגדרות בתוכנת הרחפן שקובעות כמה מהר הרחפן יסתובב באוויר (במעלות לשנייה) כאשר מזיזים את הסטיקים בשלט עד הסוף. Rates גבוהים גורמים לרחפן להגיב בצורה חדה ומהירה במיוחד.",
+            Category = "תוכנה והטסה"
+        },
+        new GlossaryItem {
+            Term = "BnF", EnglishName = "Bind and Fly",
+            Definition = "רחפן שמגיע מוכן לחלוטין מהמפעל (מורכב ומולחם). כל מה שצריך לעשות זה לקשר אותו לשלט שלכם, לחבר סוללה ולטוס.",
+            Category = "כללי"
+        },
+        new GlossaryItem {
+            Term = "Tiny Whoop", EnglishName = "טייני וופ",
+            Definition = "קטגוריה של רחפנים זעירים במיוחד (בדרך כלל במשקל של 15-30 גרם) עם מגיני פרופלורים מובנים, המיועדים בעיקר לטיסה בתוך הבית ומעבר בין מכשולים קטנים.",
+            Category = "סוגי רחפנים"
+        },
+        new GlossaryItem {
+            Term = "Cinewhoop", EnglishName = "סינוופ",
+            Definition = "רחפן בגודל בינוני (לרוב 2 עד 3.5 אינץ') המצויד במגיני פרופלורים קשיחים (Ducts). מיועד להטסה בטוחה בקרבת בני אדם ומקומות צפופים, ומשמש בעיקר לנשיאת מצלמות אקשן (כמו GoPro) לצילומים קולנועיים חלקים.",
+            Category = "סוגי רחפנים"
+        },
+        new GlossaryItem {
+            Term = "Long Range Drone", EnglishName = "רחפן לטווח ארוך",
+            Definition = "רחפנים (לרוב בגודל 7 אינץ' ומעלה) שנבנו במיוחד כדי לטוס מרחקים עצומים של קילומטרים רבים. הם בנויים בצורה יעילה לחיסכון באנרגיה, ומשתמשים לעיתים קרובות בסוללות ליתיום-יון (Li-Ion) המאפשרות זמני טיסה ארוכים של 15-30 דקות.",
+            Category = "סוגי רחפנים"
+        }
+    };
+
+    // סינון דינמי של הרשימה לפי מה שהמשתמש מקליד
+    private IEnumerable<GlossaryItem> FilteredTerms =>
+        string.IsNullOrWhiteSpace(searchQuery)
+            ? GlossaryTerms
+            : GlossaryTerms.Where(x =>
+                x.Term.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                x.EnglishName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                x.Definition.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                x.Category.Contains(searchQuery, StringComparison.OrdinalIgnoreCase));
+
+    // התאמת צבע תגית לפי קטגוריה
+    private string GetCategoryColor(string category)
+    {
+        return category switch
+        {
+            "אלקטרוניקה" => "#0088ff",   // כחול
+            "מערכת וידאו" => "#9b5de5",  // סגול
+            "רדיו ושלט" => "#00bbf9",    // תכלת
+            "תדרי שידור" => "#4caf50",   // ירוק
+            "סוללות" => "#f15bb5",       // ורוד
+            "תוכנה והטסה" => "#00f5d4",  // טורקיז
+            "סוגי רחפנים" => "#ffaa00",  // צהוב/זהב
+            _ => "#ff5500"               // כתום FPV לכללי
+        };
+    }
+}

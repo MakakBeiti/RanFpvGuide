@@ -1,0 +1,256 @@
+﻿@page "/calculators"
+
+<div class="container mt-4" style="max-width: 900px; margin: 0 auto; padding: 0 15px;">
+
+    <div class="text-center mb-5">
+        <h1 style="color: var(--fpv-orange); font-size: 2.5rem; font-weight: 700; margin-bottom: 10px;">מחשבוני FPV מתקדמים</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">כלים אינטראקטיביים עם מערכת בקרת משקל והתאמה חכמה בין גוף הרחפן לגודל הסוללה.</p>
+    </div>
+
+    <div class="fpv-card mb-4">
+        <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <span>🔌</span> מחשבון זרם טעינה מותאם אישית
+        </h3>
+
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div>
+                <label style="font-weight: 600; display: block; margin-bottom: 5px;">קיבולת הסוללה (mAh):</label>
+                <input type="number" @bind-value="batteryCapacity" @bind-value:event="oninput" min="0" max="10000" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-light);" placeholder="למשל: 1300" />
+            </div>
+
+            <div>
+                <label style="font-weight: 600; display: block; margin-bottom: 5px;">קצב טעינה מבוקש (C-Rating):</label>
+                <select @bind="chargeC" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-light); background-color: #fff;">
+                    <option value="1">1C - טעינה בטוחה וסטנדרטית (מומלץ לשמירה על חיי הסוללה)</option>
+                    <option value="2">2C - טעינה מהירה (רק אם אתם ממהרים לשטח והסוללה במצב מצוין)</option>
+                    <option value="3">3C - טעינה אגרסיבית (מקצר את אורך חיי הסוללה, לא מומלץ בשגרה)</option>
+                </select>
+            </div>
+
+            <div style="background-color: rgba(0, 136, 255, 0.05); padding: 15px; border-radius: 8px; border: 1px dashed var(--fpv-blue); text-align: center; margin-top: 10px;">
+                <span style="display: block; font-size: 0.9rem; color: var(--text-muted);">כוונו את המטען שלכם לזרם הבא:</span>
+                <strong style="font-size: 1.8rem; color: var(--fpv-blue);">@CalculatedChargeCurrent.ToString("F1") אמפר (A)</strong>
+            </div>
+
+            <div style="background-color: #f8f9fa; padding: 12px; border-radius: 6px; font-size: 0.9rem; border-right: 3px solid var(--text-muted); margin-top: 5px;">
+                <strong>💡 באיזה קצב C לבחור?</strong>
+                <ul style="margin-right: 15px; margin-top: 5px; padding: 0;">
+                    <li><strong>טעינת 1C:</strong> לוקחת בערך שעה. זו הדרך הכי בטוחה ששומרת על הסוללה לאורך שנים.</li>
+                    <li><strong>טעינת 2C:</strong> לוקחת בערך חצי שעה. נוחה מאוד כשנמצאים בשטח ורוצים לחזור לאוויר מהר.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="fpv-card">
+        <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <span>⏱️</span> מחשבון זמן טיסה משוער לפי סוג ומשקל הרחפן
+        </h3>
+
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div>
+                <label style="font-weight: 600; display: block; margin-bottom: 5px;">סוג וגודל הרחפן (הגדרות יצרן):</label>
+                <select @bind="droneType" @bind:after="SetDefaultWeight" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-light); background-color: #fff;">
+                    <option value="whoop65">Tiny Whoop 65mm (משקל עצמי כ-15 גרם)</option>
+                    <option value="whoop75">Tiny Whoop 75mm (משקל עצמי כ-20 גרם)</option>
+                    <option value="cine2">Cinewhoop 2"-2.5" (רחפן צילום מוגן קטן)</option>
+                    <option value="cine3">Cinewhoop 3"-3.5" (רחפן צילום מוגן סטנדרטי)</option>
+                    <option value="free35">Freestyle 3.5" (רחפן פריסטייל קל וזריז)</option>
+                    <option value="free5">Freestyle 5" (רחפן פריסטייל מקצועי בגודל מלא)</option>
+                </select>
+            </div>
+
+            <div>
+                <label style="font-weight: 600; display: block; margin-bottom: 5px;">קיבולת הסוללה המורכבת (mAh):</label>
+                <input type="number" @bind-value="flightCapacity" @bind-value:event="oninput" min="50" max="10000" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-light);" />
+                <span style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: 4px;">
+                    טווח סוללה מומלץ לקטגוריה זו: @GetRecommendedSpecs()
+                </span>
+            </div>
+
+            <div>
+                <label style="font-weight: 600; display: block; margin-bottom: 5px;">משקל כולל בשטח (רחפן + סוללה + מצלמה בגרמים):</label>
+                <input type="number" @bind-value="totalWeight" @bind-value:event="oninput" min="1" max="5000" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-light);" />
+                <span style="font-size: 0.85rem; color: var(--fpv-blue); display: block; margin-top: 4px;">
+                    💡 טיפ: משקל כבד יותר מאמץ את המנועים ומקצר את זמן הטיסה משמעותית!
+                </span>
+            </div>
+
+            <div>
+                <label style="font-weight: 600; display: block; margin-bottom: 5px;">סגנון טיסה מתוכנן:</label>
+                <select @bind="flightStyle" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-light); background-color: #fff;">
+                    <option value="cinematic">טיסה רגועה / ריחופים חלקים (צריכת זרם נמוכה)</option>
+                    <option value="freestyle">פריסטייל חופשי / שילוב סלטות ומאמץ בינוני</option>
+                    <option value="racing">מירוצים אגרסיביים / טיסה במהירות מקסימלית (פול גז)</option>
+                </select>
+            </div>
+
+            @if (IsBatteryTooHeavy)
+            {
+                <div style="margin-top: 15px; background-color: rgba(220, 53, 69, 0.08); padding: 20px; border-radius: 8px; border: 2px solid #dc3545; text-align: center;">
+                    <span style="display: block; font-size: 1.1rem; color: #dc3545; font-weight: 700; margin-bottom: 5px;">⚠️ שגיאה: משקל סוללה חורג!</span>
+                    <p style="color: var(--text-primary); margin: 0; font-size: 0.95rem;">
+                        סוללה בקיבולת @flightCapacity mAh גדולה וכבדה מדי עבור שלדה מסוג זה. הרחפן יתקשה להמריא והמנועים עלולים להישרף!
+                    </p>
+                </div>
+            }
+            else if (IsBatteryTooSmall)
+            {
+                <div style="margin-top: 15px; background-color: rgba(255, 193, 7, 0.08); padding: 20px; border-radius: 8px; border: 2px solid #ffc107; text-align: center;">
+                    <span style="display: block; font-size: 1.1rem; color: #b58100; font-weight: 700; margin-bottom: 5px;">⚠️ שגיאה: סוללה קטנה מדי!</span>
+                    <p style="color: var(--text-primary); margin: 0; font-size: 0.95rem;">
+                        סוללה של @flightCapacity mAh קטנה מדי. היא לא תעמוד בזרם שהמנועים דורשים ותתרוקן תוך שניות בודדות.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div style="margin-top: 15px; background-color: rgba(255, 85, 0, 0.05); padding: 20px; border-radius: 8px; border: 1px solid var(--fpv-orange); text-align: center;">
+                    <span style="display: block; font-size: 1rem; color: var(--text-muted); margin-bottom: 5px;">זמן טיסה משוער באוויר:</span>
+                    <strong style="font-size: 2.2rem; color: var(--fpv-orange);">@EstimatedFlightTime</strong>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+@code {
+    // לוגיקה למחשבון 1
+    private int batteryCapacity = 1500;
+    private int chargeC = 1;
+    private double CalculatedChargeCurrent => ((double)batteryCapacity / 1000.0) * chargeC;
+
+    // לוגיקה למחשבון 2
+    private int flightCapacity = 1500;
+    private int totalWeight = 650;
+    private string flightStyle = "freestyle";
+    private string droneType = "free5";
+
+    // פונקציית עזר לעדכון אוטומטי של משקל התחלתי הגיוני כשמחליפים סוג רחפן
+    private void SetDefaultWeight()
+    {
+        totalWeight = droneType switch
+        {
+            "whoop65" => 28,
+            "whoop75" => 38,
+            "cine2" => 170,
+            "cine3" => 390,
+            "free35" => 250,
+            "free5" => 650,
+            _ => 650
+        };
+
+        flightCapacity = droneType switch
+        {
+            "whoop65" => 300,
+            "whoop75" => 450,
+            "cine2" => 650,
+            "cine3" => 1100,
+            "free35" => 850,
+            "free5" => 1400,
+            _ => 1400
+        };
+    }
+
+    // בדיקות הגבלה (Validation)
+    private bool IsBatteryTooHeavy =>
+        (droneType == "whoop65" && flightCapacity > 500) ||
+        (droneType == "whoop75" && flightCapacity > 750) ||
+        (droneType == "cine2" && flightCapacity > 1100) ||
+        (droneType == "cine3" && flightCapacity > 1500) ||
+        (droneType == "free35" && flightCapacity > 1200) ||
+        (droneType == "free5" && flightCapacity > 1800);
+
+    private bool IsBatteryTooSmall =>
+        (droneType == "whoop65" && flightCapacity < 250) ||
+        (droneType == "whoop75" && flightCapacity < 250) ||
+        (droneType == "cine2" && flightCapacity < 450) ||
+        (droneType == "cine3" && flightCapacity < 600) ||
+        (droneType == "free35" && flightCapacity < 450) ||
+        (droneType == "free5" && flightCapacity < 1300);
+
+    private string GetRecommendedSpecs()
+    {
+        return droneType switch
+        {
+            "whoop65" => "250mAh - 500mAh",
+            "whoop75" => "250mAh - 750mAh",
+            "cine2" => "450mAh - 1100mAh",
+            "cine3" => "600mAh - 1500mAh",
+            "free35" => "450mAh - 1200mAh",
+            "free5" => "1300mAh - 1800mAh",
+            _ => ""
+        };
+    }
+
+    private string EstimatedFlightTime
+    {
+        get
+        {
+            if (flightCapacity <= 0 || totalWeight <= 0 || IsBatteryTooHeavy || IsBatteryTooSmall) return "0:00 דקות";
+
+            double baseMinutes = 0;
+            double weightFactor = 1.0;
+
+            // 1. חישוב זמן בסיס ויחס משקל אופטימלי לקטגוריה
+            switch (droneType)
+            {
+                case "whoop65":
+                    baseMinutes = (flightCapacity / 350.0) * 3.5;
+                    weightFactor = 28.0 / totalWeight;
+                    break;
+
+                case "whoop75":
+                    baseMinutes = (flightCapacity / 450.0) * 4.0;
+                    weightFactor = 38.0 / totalWeight;
+                    break;
+
+                case "cine2":
+                    baseMinutes = (flightCapacity / 850.0) * 3.5;
+                    weightFactor = 170.0 / totalWeight;
+                    break;
+
+                case "cine3":
+                    baseMinutes = (flightCapacity / 1300.0) * 4.0;
+                    weightFactor = 390.0 / totalWeight;
+                    break;
+
+                case "free35":
+                    baseMinutes = (flightCapacity / 850.0) * 4.5;
+                    weightFactor = 250.0 / totalWeight;
+                    break;
+
+                case "free5":
+                    baseMinutes = (flightCapacity / 1500.0) * 4.0;
+                    weightFactor = 650.0 / totalWeight;
+                    break;
+            }
+
+            // החלת השפעת המשקל על החישוב
+            baseMinutes *= weightFactor;
+
+            // 2. מקדם סגנון טיסה
+            switch (flightStyle)
+            {
+                case "cinematic":
+                    baseMinutes *= 1.2;
+                    break;
+                case "freestyle":
+                    baseMinutes *= 1.0;
+                    break;
+                case "racing":
+                    baseMinutes *= 0.6;
+                    break;
+            }
+
+            // המרה לדקות ושניות
+            int minutes = (int)baseMinutes;
+            int seconds = (int)((baseMinutes - minutes) * 60);
+
+            if (minutes < 0 || seconds < 0) return "0:00 דקות";
+
+            return $"{minutes}:{seconds:D2} דקות";
+        }
+    }
+}

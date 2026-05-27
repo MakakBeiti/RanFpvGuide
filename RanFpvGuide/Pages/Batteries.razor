@@ -1,0 +1,77 @@
+﻿@page "/batteries"
+
+<div class="container mt-4" style="max-width: 900px; margin: 0 auto; padding: 0 15px;">
+
+    <div class="text-center mb-5">
+        <h1 style="color: var(--fpv-orange); font-size: 2.5rem; font-weight: 700; margin-bottom: 10px;">מדריך הסוללות המלא: LiPo, Li-Ion ובטיחות</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">הסוללה היא הדלק של הרחפן. שימוש נכון בה יעניק לכם ביצועים מקסימליים וישמור עליכם בטוחים.</p>
+    </div>
+
+    <div class="fpv-card">
+        <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px;">
+            <span>🔋</span> סוללות LiPo (Lithium Polymer)
+        </h3>
+        <p>סוללות ה-LiPo הן הסוללות הנפוצות ביותר ברחפני FPV. הסיבה לכך היא היכולת שלהן לפרוק כמות עצומה של זרם חשמלי בבת אחת. זה מה שמאפשר למנועים של הרחפן להאיץ מאפס למאה קמ"ש בפחות משנייה ולבצע תמרונים חדים.</p>
+        <p><strong>חיסרון מרכזי:</strong> הן רגישות מאוד, עלולות להתלקח אם הן נפגעות, וזמן הטיסה שלהן קצר (3 עד 7 דקות).</p>
+    </div>
+
+    <div class="fpv-card">
+        <h3 style="color: var(--fpv-orange); display: flex; align-items: center; gap: 10px;">
+            <span>🔄</span> מה ההבדל בין LiPo ל-Li-Ion?
+        </h3>
+        <p>סוללות Li-Ion (ליתיום-יון) הן הסוללות שאתם מכירים מהטלפון הנייד או ממברגות חשמליות (למשל סוללות בתצורת גליל כמו 18650 או 21700).</p>
+
+        <table class="table mt-3" style="width: 100%; border-collapse: collapse; text-align: right;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--border-light); color: var(--fpv-blue);">
+                    <th style="padding: 10px;">מאפיין</th>
+                    <th style="padding: 10px;">סוללת LiPo</th>
+                    <th style="padding: 10px;">סוללת Li-Ion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid var(--border-light);">
+                    <td style="padding: 10px; font-weight: bold;">כוח מתפרץ (C-Rating)</td>
+                    <td style="padding: 10px; color: #26b050;">גבוה מאוד (מתאימה לביצועים וסלטות)</td>
+                    <td style="padding: 10px; color: #dc3545;">נמוך (עלולה להיהרס במאמץ רב)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-light);">
+                    <td style="padding: 10px; font-weight: bold;">צפיפות אנרגיה (זמן טיסה)</td>
+                    <td style="padding: 10px; color: #dc3545;">נמוכה (זמן טיסה קצר)</td>
+                    <td style="padding: 10px; color: #26b050;">גבוהה מאוד (זמן טיסה ארוך - עד 30 דקות!)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-light);">
+                    <td style="padding: 10px; font-weight: bold;">עמידות פיזית</td>
+                    <td style="padding: 10px;">רכה ופגיעה (ארוזה במעטפת גמישה)</td>
+                    <td style="padding: 10px;">קשיחה יותר (בתוך גליל מתכת)</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="mt-3" style="font-size: 0.95rem; color: var(--text-muted);"><strong>בשורה התחתונה:</strong> משתמשים ב-LiPo לרחפני freestyle ומירוצים, ומשתמשים ב-Li-Ion לרחפני טווח רחוק (Long Range) שטסים רגוע ולאורך זמן.</p>
+    </div>
+
+    <div class="fpv-card">
+        <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px;">
+            <span>🔌</span> איך טוענים סוללת FPV בצורה נכונה?
+        </h3>
+        <ul>
+            <li class="mb-2"><strong>טעינת איזון (Balance Charge):</strong> תמיד, אבל תמיד, תטענו במצב Balance! מצב זה דואג שכל התאים (Cells) בסוללה יקבלו מתח שווה. מתח לא מאוזן הורס את הסוללה ומסוכן.</li>
+            <li class="mb-2"><strong>קצב טעינה של 1C:</strong> מומלץ לחשב את זרם הטעינה לפי קיבולת הסוללה. למשל: סוללה של 1500mAh יש לטעון בזרם של 1.5 אמפר. סוללה של 1300mAh ב-1.3 אמפר.</li>
+            <li class="mb-2"><strong>מתח אחסון (Storage Voltage):</strong> אם אתם לא הולכים להטיס ביומיים הקרובים, אל תשאירו את הסוללות מלאות או ריקות לחלוטין. הטעינו/פילתו אותן למצב Storage (כ-3.8V עד 3.85V לתא). זה שומר על אורך חיי הסוללה.</li>
+        </ul>
+    </div>
+
+    <div class="fpv-card" style="border: 2px solid #dc3545; background-color: rgba(220, 53, 69, 0.02);">
+        <h3 style="color: #dc3545; display: flex; align-items: center; gap: 10px;">
+            <span>⚠️</span> חוקי בטיחות חובה (אל תדלגו!)
+        </h3>
+        <p>סוללות LiPo יכולות להיות מסוכנות ולהתלקח אם לא מתייחסים אליהן בכבוד. הנה כמה חוקי ברזל:</p>
+        <ul>
+            <li class="mb-2" style="color: var(--text-primary);"><strong>לעולם אל תטענו סוללה ללא השגחה:</strong> רוב השריפות קורות בזמן הטעינה. היו תמיד באותו החדר.</li>
+            <li class="mb-2" style="color: var(--text-primary);"><strong>השתמשו בתיק חסין אש (LiPo Safe Bag):</strong> בזמן טעינה ובזמן אחסון בבית, שמרו את הסוללות בתוך תיק ייעודי חסין אש או בקופסת מתכת מתאימה.</li>
+            <li class="mb-2" style="color: var(--text-primary);"><strong>בדיקת נזק פיזי:</strong> אם חזרתם מהטסה והסוללה נראית נפוחה כמו כרית ("Puffy") או שהיא קיבלה מכה קשה והמעטפת נקרעה - היא פסולה לשימוש ויש להשליך אותה למחזור סוללות באופן בטוח.</li>
+            <li class="mb-2" style="color: var(--text-primary);"><strong>פריקת יתר:</strong> אל תטיסו עד שהסוללה מתה לחלוטין. נחתו כשהמתח מגיע ל-3.5V לתא. ירידה מתחת ל-3.3V עלולה לגרום לנזק בלתי הפיך.</li>
+        </ul>
+    </div>
+
+</div>

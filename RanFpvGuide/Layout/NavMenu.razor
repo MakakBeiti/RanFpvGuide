@@ -1,0 +1,60 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">FPV ויקיפדיה</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="nav flex-column">
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="getting-started" Match="NavLinkMatch.All">
+                <span class="bi bi-gear-wide-connected" aria-hidden="true"></span> מתחילים בתחום
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="parts" Match="NavLinkMatch.All">
+                <span class="bi bi-gear-wide-connected" aria-hidden="true"></span> מידע על חלקים
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="batteries" Match="NavLinkMatch.All">
+                <span class="bi bi-gear-wide-connected" aria-hidden="true"></span> סוללות ובטיחות
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="calculators" Match="NavLinkMatch.All">
+                <span class="bi bi-gear-wide-connected" aria-hidden="true"></span> FPV מחשבון
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="glossary" Match="NavLinkMatch.All">
+                <span class="bi bi-gear-wide-connected" aria-hidden="true"></span> FPV מילון
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="vtx-channels" Match="NavLinkMatch.All">
+                <span class="bi bi-gear-wide-connected" aria-hidden="true"></span> מפת תדרי וידאו
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="goggles-radios" Match="NavLinkMatch.All">
+                <span class="bi bi-gear-wide-connected" aria-hidden="true"></span> משקפי DJI ושלטים
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

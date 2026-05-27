@@ -1,0 +1,208 @@
+﻿@page "/parts"
+
+<div class="container mt-4" style="max-width: 900px; margin: 0 auto; padding: 0 15px;" dir="rtl">
+
+    <div class="text-center mb-5">
+        <h1 style="color: var(--fpv-orange); font-size: 2.5rem; font-weight: 700; margin-bottom: 10px;">רכיבי הרחפן: ממה מורכב רחפן FPV?</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">כדי להבין איך רחפן FPV עובד, כדאי להכיר את החלקים העיקריים שלו. הנה המדריך הפשוט לכל הרכיבים:</p>
+    </div>
+
+    @* --- 1. Шלדה (Frame) --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgFrame)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת שלדה (Frame)</div>
+                }
+                else
+                {
+                    <img src="https://ae-pic-a1.aliexpress-media.com/kf/S86efa52eea2449fdb9012811f6f7db1cQ.jpg_960x960q75.jpg_.avif"
+                         alt="שלדה"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgFrame = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 15px;">
+                    <span>📐</span> שלדה (Frame)
+                </h3>
+                <p>השלדה היא גוף הרחפן, ובדרך כלל היא עשויה מסיבי פחמן (קרבון) כדי להיות חזקה מאוד וקלה. היא מחזיקה ומגנה על כל שאר הרכיבים בזמן התרסקויות.</p>
+            </div>
+        </div>
+    </div>
+
+    @* --- 2. בקר טיסה (Flight Controller - FC) --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgFC)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת בקר טיסה (FC)</div>
+                }
+                else
+                {
+                    <img src="https://cdn11.bigcommerce.com/s-fhxxhuiq8q/images/stencil/500x500/products/226/1193/f405mini-4__14343.1694250741.jpg?c=2"
+                         alt="בקר טיסה"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgFC = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 15px;">
+                    <span>🧠</span> בקר טיסה (Flight Controller - FC)
+                </h3>
+                <p>ה"מוח" של הרחפן. זהו לוח אלקטרוני קטן עם חיישנים שמחשבים את המיקום של הרחפן באוויר מאות פעמים בשנייה. הוא מקבל את הפקודות שלכם מהשלט ודואג שהרחפן יטוס בדיוק לאן שרציתם.</p>
+            </div>
+        </div>
+    </div>
+
+    @* --- 3. בקר מהירות (ESC) --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgESC)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת בקר מהירות (ESC)</div>
+                }
+                else
+                {
+                    <img src="https://cdn11.bigcommerce.com/s-fhxxhuiq8q/images/stencil/1280x1280/products/226/1190/f405mini-6__67243.1694250671.jpg?c=2"
+                         alt="בקר מהירות"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgESC = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 15px;">
+                    <span>⚡</span> בקר מהירות (ESC)
+                </h3>
+                <p>הרכיב שמקשר בין הסוללה, המוח (הבקר) והמנועים. ה-ESC מקבל פקודה מבקר הטיסה ומזרים את כמות החשמל המדויקת לכל מנוע כדי לשנות את המהירות שלו בשבריר שנייה.</p>
+            </div>
+        </div>
+    </div>
+
+    @* --- 4. מנועים ופרופלורים (Motors & Props) --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgMotors)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת מנועים ופרופלורים</div>
+                }
+                else
+                {
+                    <img src="https://www.racedayquads.com/cdn/shop/products/iflight-iflight-xing-e-pro-2207-1800kv-motor-motor-28679175307377.jpg?v=1737265366&width=600"
+                         alt="מנועים ופרופלורים"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgMotors = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 15px;">
+                    <span>🛸</span> מנועים ופרופלורים (Motors & Props)
+                </h3>
+                <p>ברחפן FPV יש 4 מנועים חשמליים חזקים במיוחד (Brushless). עליהם מורכבים הפרופלורים (הלהבים) שדוחפים את האוויר ומייצרים את כוח העילוי שמאפשר לרחפן לטוס במהירות מטורפת ולעשות סלטות.</p>
+            </div>
+        </div>
+    </div>
+
+    @* --- 5. מצלמה ומשדר וידאו (Camera & VTX) --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgVTX)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת מצלמה ומשדר</div>
+                }
+                else
+                {
+                    <img src="https://www.djistore.benda.co.il/wp-content/uploads/2025/04/04522b4cfb2b9b14a5c8788ae9b3b5e2@ultra.webp"
+                         alt="מצלמה ומשדר וידאו"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgVTX = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 15px;">
+                    <span>🎥</span> מצלמה ומשדר וידאו (Camera & VTX)
+                </h3>
+                <p>המצלמה נמצאת בחזית ומצלמת את הטיסה. משדר הוידאו (VTX) לוקח את התמונה ומשדר אותה אלחוטית ישירות למשקפיים שלכם בזמן אמת, בלי עיכובים (Latency), כדי שתרגישו כאילו אתם יושבים בתוך הרחפן.</p>
+            </div>
+        </div>
+    </div>
+
+    @* --- 6. מקלט רדיו (Receiver - RX) --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgRX)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת מקלט רדיו (RX)</div>
+                }
+                else
+                {
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzFfx17oSTkvfEIFPlwtnyJT6kCk3KeGSKhg&s"
+                         alt="מקלט רדיו"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgRX = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 15px;">
+                    <span>📡</span> מקלט רדיו (Receiver - RX)
+                </h3>
+                <p>האנטנה הקטנה שעל הרחפן שמקשיבה לשלט שבידיים שלכם. המקלט קולט את תנועות הסטיקים שלכם ומעביר אותן מיד לבקר הטיסה.</p>
+            </div>
+        </div>
+    </div>
+
+    @* --- 7. סוללה (LiPo Battery) --- *@
+    <div class="fpv-card mb-4" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="component-image-wrapper" style="flex: 0 0 180px; max-width: 180px;">
+                @if (hideImgBattery)
+                {
+                    <div class="image-placeholder-text" style="padding: 20px; border: 1px dashed var(--border-light); text-align: center; color: var(--text-muted);">תמונת סוללת LiPo</div>
+                }
+                else
+                {
+                    <img src="https://www.racedayquads.com/cdn/shop/files/gnb-gaoneng-gnb-29-6v-8s-1530mah-160c-lipo-battery-xt60-battery-32032184533105.jpg?v=1737124981&width=1200"
+                         alt="סוללה"
+                         style="width: 100%; height: auto; border-radius: 8px;"
+                         @onerror="() => hideImgBattery = true" />
+                }
+            </div>
+            <div class="component-info" style="flex: 1; min-width: 250px;">
+                <h3 style="color: var(--fpv-blue); display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 15px;">
+                    <span>🔋</span> סוללה (LiPo Battery)
+                </h3>
+                <p>סוללות מסוג ליתיום-פולימר (LiPo). הן מספקות המון כוח בבת אחת כדי להפעיל את המנועים החזקים, אך זמן הטיסה הממוצע שלהן קצר יחסית (בין 3 ל-7 דקות טיסה בלבד).</p>
+
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border-light);">
+                    <p style="font-size: 0.95rem; margin-bottom: 12px; font-weight: 600;">רוצים לדעת איך לשמור על הסוללות, איך להטעין נכון ומה ההבדל בין LiPo ל-Li-Ion?</p>
+                    <a href="batteries" class="btn btn-primary" style="display: inline-block; text-decoration: none;">
+                        📖 למדריך הסוללות והבטיחות המלא
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* --- Quick Hint Info Box --- *@
+    <div class="alert mt-4 p-3 text-center" style="background-color: rgba(0, 136, 255, 0.1); border: 1px dashed var(--fpv-blue); border-radius: 8px;">
+        <strong style="color: var(--text-primary);">💡 טיפ למתחילים:</strong> הדרך הכי טובה להתחיל היא לקנות קודם כל שלט (שלט רדיו) ולהתאמן בסימולטור במחשב לפני שקונים ובונים רחפן אמיתי!
+    </div>
+
+</div>
+
+@code {
+    // Individual booleans to manage standard image loading errors gracefully per card
+    private bool hideImgFrame = false;
+    private bool hideImgFC = false;
+    private bool hideImgESC = false;
+    private bool hideImgMotors = false;
+    private bool hideImgVTX = false;
+    private bool hideImgRX = false;
+    private bool hideImgBattery = false;
+}

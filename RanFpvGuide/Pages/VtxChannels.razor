@@ -1,0 +1,217 @@
+﻿@page "/vtx-channels"
+
+<div class="container mt-4" style="max-width: 1000px; margin: 0 auto; padding: 0 15px; font-family: sans-serif; direction: rtl;">
+
+    <div class="text-center mb-4">
+        <h1 style="color: var(--fpv-orange); font-size: 2.5rem; font-weight: 700; margin-bottom: 10px;">מפת תדרי וידאו (VTX Table) & מדריך קבוצות</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">כלי אינטראקטיבי למניעת התרסקויות והפרעות וידאו. לחצו על ערוץ כדי לבדוק אילו תדרים אחרים יגרמו לזליגה ויסכנו אתכם בשטח.</p>
+    </div>
+
+    <div class="fpv-card mb-4" style="border-right: 4px solid var(--fpv-blue); background-color: #fdfdfd;">
+        @if (selectedFrequency == 0)
+        {
+            <div class="text-center p-2">
+                <span style="font-size: 1.5rem; display: block; margin-bottom: 5px;">📡 מדריך שטח מהיר</span>
+                <p style="margin: 0; color: var(--text-primary);">לחצו על תדר כלשהו בטבלה למטה כדי לראות את רדיוס ההפרעה שלו בזמן אמת.</p>
+            </div>
+        }
+        else
+        {
+            <div>
+                <h4 style="color: var(--fpv-blue); margin-bottom: 10px; font-weight: 700;">
+                    ערוץ נבחר: <span style="color: var(--fpv-orange);">@selectedBand - ערוץ @selectedChannel (@selectedFrequency MHz)</span>
+                </h4>
+                <p style="margin-bottom: 15px; font-size: 0.95rem; line-height: 1.5;">
+                    כאשר אתם מטיסים על התדר הזה, כל רחפן אחר שישדר בטווח של <strong>קרוב מ-40 MHz</strong> אליכם יחסום לכם את הוידאו במשקפיים או יחווה הפרעות קשות בעצמו.
+                </p>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.9rem;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="display: inline-block; width: 16px; height: 16px; background-color: #ff4d4d; border-radius: 4px;"></span>
+                        <span><strong>סכנה קריטית (אותו תדר בדיוק)</strong></span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="display: inline-block; width: 16px; height: 16px; background-color: #ffa500; border-radius: 4px;"></span>
+                        <span><strong>זליגת תדר מסוכנת (פחות מ-40 MHz הפרש)</strong></span>
+                    </div>
+                    <button class="btn btn-sm" @onclick="ClearSelection" style="margin-right: auto; background-color: var(--text-muted); color: white; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer;">נקה בחירה</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div style="overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid var(--border-light); margin-bottom: 30px;">
+        <table style="width: 100%; border-collapse: collapse; text-align: center; min-width: 600px;">
+            <thead>
+                <tr style="background-color: #f1f3f5; border-bottom: 2px solid var(--border-light);">
+                    <th style="padding: 15px; font-weight: 700; color: var(--text-primary);">רשת (Band)</th>
+                    @for (int ch = 1; ch <= 8; ch++)
+                    {
+                        <th style="padding: 15px; font-weight: 700; color: var(--text-primary);">CH @ch</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var band in VtxTable)
+                {
+                    <tr style="border-bottom: 1px solid var(--border-light);">
+                        <td style="padding: 15px; font-weight: 700; background-color: #fafafa; color: @(band.Key.Contains("DJI") ? "#4caf50" : "var(--fpv-blue)"); width: 160px; border-left: 1px solid var(--border-light);">
+                            @band.Key
+                        </td>
+                        @for (int chIndex = 0; chIndex < 8; chIndex++)
+                        {
+                            var currentCh = chIndex + 1;
+                            var freq = band.Value[chIndex];
+
+                            // מניעת שגיאה במקרה שלערוץ מסוים אין 8 תדרים (כמו ב-DJI 50mbps)
+                            if (freq == 0)
+                            {
+                                <td style="padding: 12px; background-color: #f8f9fa; color: #ccc; cursor: not-allowed;">❌</td>
+                            }
+                            else
+                            {
+                                var cellStyle = GetCellStyle(freq);
+                                <td style="padding: 12px; cursor: pointer; transition: all 0.15s; @cellStyle"
+                                    @onclick="() => SelectChannel(band.Key, currentCh, freq)">
+                                    <strong style="display: block; font-size: 1.05rem;">@freq</strong>
+                                    <span style="font-size: 0.75rem; opacity: 0.7;">MHz</span>
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="fpv-card" style="border-right: 4px solid #4caf50; background-color: #fafdfa; margin-top: 20px;">
+        <h3 style="color: #2e7d32; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <span>🤖</span> מפגש שטח: איך מטיסי DJI ואנלוג מטיסים יחד?
+        </h3>
+
+        <p style="line-height: 1.6; margin-bottom: 15px;">
+            מערכות <strong>DJI Digital FPV</strong> (כמו O3 או Goggles 2/Integra) הן "מפלצות רוחב פס". בעוד שאות אנלוגי תופס ערוץ צר מאוד, משדר דיגיטלי תופס שטח תדרים עצום ומפזר רעש רדיו רב (Sidebands) שפשוט "חונק" מטיסים אנלוגיים ומעלים להם את התמונה.
+        </p>
+
+        <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">🔄 דמיון בין הערוצים (חפיפת תדרים קריטית):</h4>
+        <p style="line-height: 1.6; margin-bottom: 15px;">
+            שימו לב לטבלה למעלה! ערוצי DJI מבוססים כמעט לחלוטין על התדרים של <strong>Raceband</strong> האנלוגי.
+            לדוגמה: <strong>DJI CH1</strong> יושב בדיוק על 5660MHz – שזה כמעט אחד לאחד <strong>Raceband 1</strong> (5658MHz). אם מטיס אנלוגי יהיה על R1 ומטיס DJI יהיה על CH1, האנלוגי יחווה מסך שחור מיד בהמראה!
+        </p>
+
+        <h4 style="color: #d32f2f; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">⚠️ חוקי הברזל להטסה משותפת בשטח:</h4>
+        <ul style="padding-right: 20px; line-height: 1.7; margin-bottom: 0;">
+            <li>
+                <strong>חוק ההפרדה (ערוצים קבועים):</strong> הדרך הבטוחה ביותר להטיס יחד היא לחלק את השמיים מראש. מטיסי האנלוג ישבו על תחתית התדרים (למשל <strong>Raceband 1 ו-Raceband 2</strong>), ומטיסי ה-DJI ישבו על הערוצים הגבוהים ביותר (למשל <strong>DJI CH6 או CH7</strong>).
+            </li>
+            <li>
+                <strong>איכות השידור (25Mbps מול 50Mbps):</strong> במצב של 50Mbps, מערכת DJI תופסת שני ערוצים במקביל! בשטח מרובה מטיסים, מומלץ שמטיסי DJI יעבירו בהגדרות המשקפיים למצב <strong>25Mbps</strong> כדי לפנות מקום (רוחב פס) לאנלוג.
+            </li>
+            <li>
+                <strong>הדלקת רחפן רחוק מעמדת המטיסים:</strong> כשמטיס DJI מחבר סוללה לרחפן כשהוא יושב ליד מטיס אנלוגי שבאוויר, עוצמת השידור הראשונית של ה-DJI (הקרובה פיזית) תעוור את האנלוגי ותפיל אותו. חברו סוללות תמיד במרחק של לפחות 3-5 מטרים מאנשים שבאוויר.
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="fpv-card" style="border-right: 4px solid #ff9800; background-color: #fffaf2; margin-top: 20px;">
+    <h3 style="color: #ef6c00; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+        <span>📶</span> FCC Mode ב-DJI Goggles
+    </h3>
+
+    <p style="line-height: 1.6; margin-bottom: 15px;">
+        בעולם ה-FPV נהוג מאוד להפעיל <strong>FCC Mode</strong> במשקפי DJI (כגון Goggles V2, Goggles 2 ו-Integra).
+        למרות שהקהילה קוראת לזה לפעמים "<strong>FCC Hack</strong>", בפועל לא מדובר בפריצה או שינוי קושחה.
+        הפעולה רק גורמת למשקפיים לעבוד במצב FCC במקום מצב CE, וכך נפתחים ערוצים נוספים ונמנעות חלק ממגבלות האזור.
+    </p>
+
+    <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px;">
+        ✅ למה מטיסים משתמשים בזה?
+    </h4>
+
+    <ul style="padding-right: 20px; line-height: 1.7;">
+        <li>גישה לכל 8 ערוצי DJI.</li>
+        <li>תאימות טובה יותר לטבלאות התדרים המקובלות בעולם ה-FPV.</li>
+        <li>קל יותר להפריד בין מטיסים בשטח עמוס.</li>
+        <li>זמינות של ערוצי התדר הגבוהים (למשל CH7 ו-CH8).</li>
+    </ul>
+
+    <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px;">
+        🛠️ איך מפעילים?
+    </h4>
+
+    <ol style="padding-right: 20px; line-height: 1.7; margin-bottom: 15px;">
+        <li>הורידו את קובץ ה-FCC מהקישור למטה.</li>
+        <li>חלצו את הקבצים במידת הצורך.</li>
+        <li>חברו את המשקפיים למחשב באמצעות USB.</li>
+        <li>העתיקו את הקובץ לכרטיס הזיכרון או לזיכרון הפנימי של המשקפיים (בהתאם להוראות המצורפות בקובץ).</li>
+        <li>הפעילו מחדש את המשקפיים.</li>
+        <li>לאחר האתחול יופיעו ערוצי ה-FCC המלאים בתפריט בחירת הערוצים.</li>
+    </ol>
+
+    <div style="background: rgba(255,152,0,0.08); padding: 12px; border-radius: 8px;">
+        <strong>קובץ FCC:</strong>
+        <br />
+        <a href="https://drive.google.com/file/d/1Jydo8lYJ3ZLZbvrIJoIxYWRBcI_gjgWl/view"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="color: #ef6c00; font-weight: 600;">
+            הורדה והוראות התקנה
+        </a>
+    </div>
+
+    <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
+        שימו לב: יש לבדוק את חוקי השידור והתדרים הרלוונטיים במדינה שבה אתם מטיסים.
+    </p>
+</div>
+
+@code {
+    // נתוני טבלת התדרים הרשמית של עולם ה-FPV כולל ערוצי DJI
+    private Dictionary<string, int[]> VtxTable = new()
+    {
+        { "Raceband (R)",    new int[] { 5658, 5695, 5732, 5769, 5806, 5843, 5880, 5917 } },
+        { "Fatshark (F)",    new int[] { 5740, 5760, 5780, 5800, 5820, 5840, 5860, 5880 } },
+        { "DJI (25Mbps Mode)", new int[] { 5660, 5695, 5735, 5770, 5805, 5840, 5880, 5914 } },
+        { "DJI (50Mbps Mode)", new int[] { 5660, 5735, 5805, 5880, 0,    0,    0,    0    } } // במצב 50M יש רק 4 ערוצים רחבים
+    };
+
+    private string selectedBand = "";
+    private int selectedChannel = 0;
+    private int selectedFrequency = 0;
+
+    private void SelectChannel(string band, int channel, int freq)
+    {
+        selectedBand = band;
+        selectedChannel = channel;
+        selectedFrequency = freq;
+    }
+
+    private void ClearSelection()
+    {
+        selectedBand = "";
+        selectedChannel = 0;
+        selectedFrequency = 0;
+    }
+
+    private string GetCellStyle(int currentFreq)
+    {
+        if (selectedFrequency == 0)
+        {
+            return "background-color: #ffffff; color: var(--text-primary);";
+        }
+
+        if (currentFreq == selectedFrequency)
+        {
+            return "background-color: #ff4d4d; color: white; font-weight: bold; box-shadow: inset 0 0 8px rgba(0,0,0,0.2);";
+        }
+
+        int diff = Math.Abs(currentFreq - selectedFrequency);
+
+        if (diff < 40)
+        {
+            return "background-color: #ffa500; color: white; font-weight: 600;";
+        }
+
+        return "background-color: #e8f5e9; color: #2e7d32; opacity: 0.5;";
+    }
+}
