@@ -1,0 +1,181 @@
+/* Import Rubik font which looks exceptionally clean in Hebrew */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap');
+
+:root {
+    /* FPV Daylight Tech Palette */
+    --bg-main: #f3f5f8; /* Light concrete-gray background */
+    --bg-card: #ffffff; /* Clean white for content blocks */
+    --text-primary: #1e252b; /* Deep charcoal for readable text */
+    --text-muted: #627282; /* Medium gray for descriptions */
+    --fpv-blue: #0088ff; /* Sky-blue OSD telemetry color */
+    --fpv-orange: #ff5500; /* LiPo battery alert orange */
+    --border-light: #e2e8f0; /* Clean card separations */
+}
+
+/* 1. Global Setup & RTL Overrides */
+html, body {
+    font-family: 'Rubik', 'Segoe UI', Arial, sans-serif !important;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    direction: rtl !important; /* Forces site flow right-to-left */
+    text-align: right !important; /* Aligns text correctly */
+    margin: 0;
+    padding: 0;
+}
+
+h1:focus {
+    outline: none;
+}
+
+/* 2. Hyperlinks & Buttons with FPV Colors */
+a, .btn-link {
+    color: var(--fpv-blue);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+    a:hover {
+        color: #0066cc;
+    }
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--fpv-orange);
+    border-color: var(--fpv-orange);
+    font-weight: 600;
+}
+
+    .btn-primary:hover {
+        background-color: #d44700;
+        border-color: #d44700;
+    }
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem rgba(0, 136, 255, 0.4);
+}
+
+/* 3. Core Structural Page Elements */
+.content {
+    padding-top: 1.5rem;
+    background-color: var(--bg-main);
+}
+
+/* Style your page cards using this class inside your components */
+.fpv-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* 4. Forms and Validation (Fllipped alignment for RTL) */
+.form-control {
+    text-align: right !important;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid #dc3545;
+}
+
+.validation-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* 5. Custom Code Blocks styling */
+code {
+    color: #d63384;
+    background-color: rgba(214, 51, 132, 0.05);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+/* 6. Form Floating Inputs (RTL placeholder alignments) */
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--text-muted);
+    text-align: start; /* Standardized for native RTL engine behavior */
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* 7. Native Blazor Infrastructure UI (Error UI & Progress loaders) */
+#blazor-error-ui {
+    background: #fff3cd;
+    color: #664d03;
+    bottom: 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    padding: 0.75rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    border-top: 1px solid #ffecb5;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        left: 0.75rem; /* Swapped to the left side for RTL */
+        right: auto;
+        top: 0.75rem;
+    }
+
+.blazor-error-boundary {
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYiIGhlaWdodD0iNDkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJoaWRkZW4iPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDAiPjxyZWN0IHg9IjIzNSIgeT0iNTEiIHdpZHRoPSI1NiIgaGVpZ2h0PSI0OSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMzUgLTUxKSI+PHBhdGggZD0iTTI2My41MDYgNTFDMjY0LjcxNyA1MSAyNjUuODEzIDUxLjQ4MzcgMjY2LjYwNiA1Mi4yNjU4TDI2Ny4wNTIgNTIuNzk...=) no-repeat calc(100% - 1rem)/1.8rem, #dc3545;
+    padding: 1rem 3.7rem 1rem 1rem; /* Swapped padding so text doesn't overlap icon on right side */
+    color: white;
+}
+
+    .blazor-error-boundary::after {
+        content: "אירעה שגיאה במערכת.";
+    }
+
+/* Elegant Loading Ring styling */
+.loading-progress {
+    position: absolute;
+    display: block;
+    width: 6rem;
+    height: 6rem;
+    inset: 30vh 0 auto 0;
+    margin: 0 auto;
+}
+
+    .loading-progress circle {
+        fill: none;
+        stroke: var(--border-light);
+        stroke-width: 0.4rem;
+        transform-origin: 50% 50%;
+        transform: rotate(-90deg);
+    }
+
+        .loading-progress circle:last-child {
+            stroke: var(--fpv-blue);
+            stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.6), 500%;
+            transition: stroke-dasharray 0.1s ease-in-out;
+        }
+
+.loading-progress-text {
+    position: absolute;
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-muted);
+    inset: calc(30vh + 2.2rem) 0 auto 0;
+}
+
+    .loading-progress-text:after {
+        content: var(--blazor-load-percentage-text, "טוען מערכת...");
+    }
