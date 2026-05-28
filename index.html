@@ -46,7 +46,15 @@
         <a href="." class="reload">Reload</a>
         <span class="dismiss">🗙</span>
     </div>
-<script src="_framework/blazor.webassembly.958z1vx7fr.js"></script>
+<script src="_framework/blazor.webassembly.958z1vx7fr.js" autostart="false"></script>
+<script>
+  Blazor.start({
+    loadBootResource: function (type, name, defaultUri, integrity) {
+      // This tells Blazor to completely ignore integrity check parameters for your hosted files
+      return defaultUri;
+    }
+  });
+</script>
 </body>
 
 </html>
