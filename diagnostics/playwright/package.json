@@ -1,0 +1,12 @@
+{
+  "name": "ransfpvguide-playwright-diagnostics",
+  "private": true,
+  "version": "0.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "probe": "node probe.js"
+  },
+  "dependencies": {
+    "playwright": "^1.57.0"
+  }
+}

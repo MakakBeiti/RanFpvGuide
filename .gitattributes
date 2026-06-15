@@ -3,6 +3,9 @@
 ###############################################################################
 * text=auto
 
+# Blazor import-map integrity hashes are byte-for-byte checks of these files.
+_framework/*.js text eol=lf
+
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
