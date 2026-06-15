@@ -1,7 +1,277 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>מדריך FPV ישראל</PageTitle>
 
-<h1>Hello, world! makak</h1>
+<div class="container mt-4 home-container" style="max-width: 1100px; margin: 0 auto; padding: 0 15px;" dir="rtl">
 
-Welcome to your new app.
+    @* HERO SECTION *@
+    <div class="hero-section"
+         style="text-align:center; padding:60px 20px; border-radius:18px; background:linear-gradient(135deg, #0f172a, #1e293b); color:white; margin-bottom:40px;">
+
+        <h1 style="font-size:3rem; font-weight:800; margin-bottom:15px; color:#ff6600;">
+            מדריך ה-FPV הישראלי
+        </h1>
+
+        <p style="font-size:1.2rem; line-height:1.8; max-width:750px; margin:0 auto 25px auto; color:#cbd5e1;">
+            המקום ללמוד הכל על רחפני FPV – החל מבחירת הרחפן הראשון,
+            דרך בניית רחפן מקצועי, ועד צילום אווירי, מירוצים ופריסטייל.
+        </p>
+
+        <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+            <a href="/getting-started"
+               style="background:#ff6600; color:white; text-decoration:none; padding:12px 24px; border-radius:10px; font-weight:700;">
+                להתחיל כאן
+            </a>
+
+            <a href="/builds"
+               style="background:transparent; border:2px solid #ff6600; color:#ff6600; text-decoration:none; padding:12px 24px; border-radius:10px; font-weight:700;">
+                בניית רחפן
+            </a>
+        </div>
+    </div>
+
+    @* WHAT IS FPV *@
+    <div style="margin-bottom:50px;">
+        <h2 style="color:#1e3a8a; border-right:4px solid #ff6600; padding-right:12px; margin-bottom:20px;">
+            מה זה FPV?
+        </h2>
+
+        <div class="fpv-card"
+             style="padding:25px; background:white; border-radius:14px; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+
+            <p style="line-height:1.9; color:#334155; margin:0;">
+                FPV (First Person View) הוא סגנון הטסה שבו הטייס רואה בזמן אמת
+                את התמונה מהמצלמה המותקנת על הרחפן דרך משקפי FPV.
+                החוויה מרגישה כאילו אתם יושבים בתוך הרחפן עצמו, מה שמאפשר
+                טיסות מהירות, אקרובטיקה, מירוצים וצילום אווירי ברמה גבוהה.
+            </p>
+
+        </div>
+    </div>
+
+    @* MAIN CATEGORIES *@
+    <div style="margin-bottom:50px;">
+
+        <h2 style="color:#1e3a8a; border-right:4px solid #ff6600; padding-right:12px; margin-bottom:25px;">
+            התחילו מהנושא שמעניין אתכם
+        </h2>
+
+        <div class="cards-grid">
+
+            <a href="/getting-started" class="home-card">
+                <div class="card-icon">🚀</div>
+                <h3>התחלת הדרך</h3>
+                <p>כל מה שצריך לדעת לפני הרחפן הראשון.</p>
+            </a>
+
+            <a href="/bnf" class="home-card">
+                <div class="card-icon">🚁</div>
+                <h3>רחפני BNF</h3>
+                <p>רחפנים מוכנים לטיסה למתחילים ולמתקדמים.</p>
+            </a>
+
+            <a href="/parts" class="home-card">
+                <div class="card-icon">🔧</div>
+                <h3>חלקי רחפן</h3>
+                <p>מדריך לכל רכיבי ה-FPV.</p>
+            </a>
+
+            <a href="/build-calculator" class="home-card">
+                <div class="card-icon">🧮</div>
+                <h3>מחשבון בנייה</h3>
+                <p>חישוב משקל ועלות מערכת.</p>
+            </a>
+
+            <a href="/calculators" class="home-card">
+                <div class="card-icon">📊</div>
+                <h3>מחשבונים</h3>
+                <p>כלי עזר שימושיים לעולם ה-FPV.</p>
+            </a>
+
+            <a href="/goggles-radios" class="home-card">
+                <div class="card-icon">🥽</div>
+                <h3>משקפיים ושלטים</h3>
+                <p>בחירת ציוד השליטה המתאים לכם.</p>
+            </a>
+
+            <a href="/batteries" class="home-card">
+                <div class="card-icon">🔋</div>
+                <h3>סוללות</h3>
+                <p>LiPo, Li-Ion, טעינה ובטיחות.</p>
+            </a>
+
+            <a href="/vtx-channels" class="home-card">
+                <div class="card-icon">📡</div>
+                <h3>ערוצי VTX</h3>
+                <p>תדרים, Bands והימנעות מהפרעות.</p>
+            </a>
+
+            <a href="/glossary" class="home-card">
+                <div class="card-icon">📖</div>
+                <h3>מילון מושגים</h3>
+                <p>כל המונחים החשובים במקום אחד.</p>
+            </a>
+
+        </div>
+
+    </div>
+
+    @* BEGINNER PATH *@
+    <div style="margin-bottom:50px;">
+
+        <h2 style="color:#1e3a8a; border-right:4px solid #ff6600; padding-right:12px; margin-bottom:20px;">
+            חדש בתחום?
+        </h2>
+
+        <a href="/getting-started"
+           style="
+            display:block;
+            text-decoration:none;
+            color:inherit;
+            background:linear-gradient(135deg,#ff6600,#ff8533);
+            border-radius:16px;
+            padding:30px;
+            box-shadow:0 8px 20px rgba(255,102,0,0.15);
+            transition:all .2s ease;">
+
+            <div style="display:flex; align-items:center; gap:20px;">
+
+                <div style="
+                    width:70px;
+                    height:70px;
+                    border-radius:50%;
+                    background:rgba(255,255,255,0.2);
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-size:2rem;
+                    color:white;
+                    flex-shrink:0;">
+                    🚀
+                </div>
+
+                <div>
+                    <h3 style="margin:0 0 10px 0; color:white; font-size:1.6rem; font-weight:700;">
+                        מדריך למתחילים
+                    </h3>
+
+                    <p style="margin:0; color:rgba(255,255,255,0.95); line-height:1.8;">
+                        לא יודעים מאיפה להתחיל? המדריך למתחילים יסביר לכם איזה שלט לקנות,
+                        איך ללמוד בסימולטור, איזה רחפן מתאים לרחפן הראשון שלכם
+                        ואיך להיכנס לעולם ה-FPV בצורה הנכונה.
+                    </p>
+
+                    <div style="
+                        margin-top:15px;
+                        font-weight:700;
+                        color:white;">
+                        להתחלת המדריך ←
+                    </div>
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    @* FOOTER INFO BOX *@
+    <div style="
+        background:rgba(37,99,235,0.06);
+        border-right:4px solid #2563eb;
+        padding:22px;
+        border-radius:12px;
+        margin-bottom:40px;">
+
+        <p style="margin:0; line-height:1.8; color:#1e40af;">
+            <strong>המטרה של האתר:</strong>
+            לרכז במקום אחד את כל המידע בעברית על עולם ה-FPV,
+            עם המלצות ציוד, מדריכי בנייה, הסברים למתחילים
+            וטיפים שיעזרו לכם להיכנס לתחביב בצורה נכונה.
+        </p>
+
+    </div>
+
+</div>
+
+<style>
+
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+        gap: 20px;
+    }
+
+    .home-card {
+        text-decoration: none;
+        color: inherit;
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        transition: all .2s ease;
+        text-align: center;
+    }
+
+        .home-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+
+    .card-icon {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+    }
+
+    .home-card h3 {
+        margin-bottom: 10px;
+        color: #1e293b;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    .home-card p {
+        margin: 0;
+        color: #64748b;
+        line-height: 1.6;
+    }
+
+    .step-card {
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .step-number {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #ff6600;
+        color: white;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    @@media (max-width: 700px) {
+
+        .hero-section h1 {
+            font-size: 2.2rem !important;
+        }
+
+        .hero-section {
+            padding: 40px 20px !important;
+        }
+
+        .cards-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+</style>
